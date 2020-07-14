@@ -14,11 +14,8 @@ def process_pdfs():
     # Get user Desktop location:
     desktop_dir = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
 
-    # Create output directory:
-    output_dir = desktop_dir + r"\merged.pdf"
-
     # Merge the pdfs by calling merge_pdfs:
-    merge_pdfs(root.filenames, output_dir)
+    merge_pdfs(root.filenames, desktop_dir)
 
     # Print out successful message:
     msg = Label(root, text = "Merge completed! Please check your Desktop")
@@ -60,15 +57,18 @@ def merge_pdfs(paths, output):
             try:
                 pdf_reader.decrypt(PASSWORD)
             except NotImplementedError:
-                print("\nException!")
                 command=f'qpdf --password="{PASSWORD}" --decrypt "{ENCRYPTED_FILE_PATH}" "{FILE_OUT_PATH}"'
-                print("\n\nThe command is: ", command)
                 os.system(command)
                 pdf_reader = PdfFileReader(FILE_OUT_PATH)
 
         for page in range(pdf_reader.getNumPages()):
             # Add each page to the writer object
             pdf_writer.addPage(pdf_reader.getPage(page))
+
+    # Ask user to name the file:
+    output_filename = simpledialog.askstring("Name the file", "Please enter a name for the merged file: ")
+    # Create output directory:
+    output = output + "\\" + output_filename + ".pdf"
 
     # Write out the merged PDF
     with open(output, 'wb') as out:
