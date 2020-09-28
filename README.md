@@ -6,4 +6,7 @@ Currently this program supports merging multiple PDF files which should locate i
 
 ## Installation
 
-It's a real simple program so there's only one file. Download the file to your device and run `python pdf-merge-gui.py` in the shell.
+The program has been converted into .exe, so now there are two ways to run it:
+
+1. Download the `pdf-merge-gui.py` file to your device and run `python pdf-merge-gui.py` in the shell.
+2. Download or clone the repo to your local computer. Run the program by clicking `pdf-merge-gui.exe` file which is located under `dist` folder.
